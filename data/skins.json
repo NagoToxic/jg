@@ -1,0 +1,32 @@
+{
+  "skins": [
+    {
+      "id": "ball_standard",
+      "name": "Standard Ball",
+      "texture": "images/ball_texture.webp",
+      "size": "medium",
+      "color": "white"
+    },
+    {
+      "id": "ball_golden",
+      "name": "Golden Ball",
+      "texture": "images/golden_ball_texture.webp",
+      "size": "small",
+      "color": "gold"
+    },
+    {
+      "id": "player_default",
+      "name": "Default Player Skin",
+      "texture": "images/player_default_skin.png",
+      "size": "medium",
+      "color": "blue"
+    },
+    {
+      "id": "player_red",
+      "name": "Red Player Skin",
+      "texture": "images/player_red_skin.png",
+      "size": "large",
+      "color": "red"
+    }
+  ]
+}

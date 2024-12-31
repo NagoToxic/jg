@@ -1,0 +1,457 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    -webkit-user-select: none;
+    user-select: none;
+    font-family: Arial, Helvetica, sans-serif;
+
+    position: fixed;
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: none;
+
+    padding-top: env(safe-area-inset-top);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+}
+
+#camera {
+    width: 100vw;
+    height: 100svh;
+    overflow: hidden;
+    position: relative;
+}
+
+#canvas {
+    position: fixed;
+    z-index: 2;
+    background-image: url('../images/grandstand.webp'), url('../images/pitch.webp');
+    background-size: cover, cover;
+    background-position: center, center;
+    background-repeat: no-repeat, no-repeat;
+}
+
+#ping {
+    position: fixed;
+    top: 8px;
+    left: 8px;
+    color: #EDEDED;
+    font-weight: 600;
+    z-index: 5;
+}
+
+#scoreboard {
+    position: fixed;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 5;
+}
+
+.score {
+    background: #171717;
+    color: #EDEDED;
+    overflow: hidden;
+    display: flex;
+}
+
+#homeContainer, #awayContainer {
+    display: flex;
+}
+
+#homeContainer > p, #awayContainer > p {
+    padding: 8px;
+}
+
+#score {
+    flex: 1;
+    font-weight: 600;
+    align-self: center;
+    padding: 0 10px;
+}
+
+#homeColors, #awayColors {
+    display: inline-block;
+    width: 10px;
+    height: 100%;
+}
+
+#timer {
+    padding: 4px 8px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    color: #171717;
+    background: #EDEDED;
+}
+
+.chat-box {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    width: 100%;
+    height: 100%;
+    color: #EDEDED;
+    background: #171717;
+    overflow: hidden;
+}
+
+#buttons {
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 8px;
+    z-index: 6;
+}
+
+i {
+    color: #EDEDED;
+}
+
+#lastMessage {
+    position: fixed;
+    width: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 8px;    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    z-index: 6;
+}
+
+.chat-messages {
+    flex: 1;
+    color: #EDEDED;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    margin-bottom: 10px;
+}
+
+#inputMessage {
+    height: auto;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: #EDEDED;
+    background-color: #171717;
+}
+
+#inputMessage::placeholder {
+    color: #444444;
+}
+
+#joy, #kick, #pass {
+    position: fixed;
+    z-index: 4;
+}
+
+#kick, #pass {
+    width: 100px;
+    height: 100px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#kick {
+    background-image: url('../images/kick.png');
+}
+
+#pass {
+    background-image: url('../images/pass.png');
+}
+
+@font-face {
+    src: url("https://www.axis-praxis.org/fonts/webfonts/MetaVariableDemo-Set.woff2")
+    format("woff2");
+    font-family: "Meta";
+    font-style: normal;
+    font-weight: normal;
+}
+
+#goal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-variation-settings: "wght" 900, "ital" 1;
+    font-size: 5rem;
+    text-align: center;
+    font-family: "Meta", sans-serif;
+    color: transparent;
+    z-index: 6;
+}
+
+#author {
+    position: absolute;
+    color: #EDEDED;
+    left: 50%;
+    bottom: 20%;
+    transform: translate(-50%, -20%);
+    font-size: 16px;
+    font-weight: 600;
+    z-index: 6;
+}
+
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #171717;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loader {
+  width: 36px;
+  height: 36px;
+  border: 4px solid #EDEDED;
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#refereeDiv, #settingsDiv, #chatDiv{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+#playerList, #settings {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 2px;
+    color: #EDEDED;
+    background: #171717;
+}
+
+#settings {
+    width: auto;
+    height: auto;
+    padding: 1rem;
+    align-items: center;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.list-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+}
+
+#homeList, #awayList, #spectatorList {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.team-button {
+    border: none;
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 2px;
+    color: #444444;
+    box-shadow: #EDEDED 5px 0px 0px;
+    font-weight: 600;
+    background: transparent;
+}
+
+.player-grid {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+}
+
+.player-card {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.player-card.selected {
+    border: #EDEDED solid 1px;
+}
+
+#controlsSettings {
+    display: flex;
+}
+
+#generalSettings {
+    width: 100%;
+}
+
+#joySettings, #kickSettings, #passSettings, #generalSettings {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    color: #EDEDED;
+    font-size: 10px;
+}
+
+#joySettings > p, #kickSettings > p, #passSettings > p, #generalSettings > p {
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: #444444;
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; 
+  appearance: none;
+  margin-top: -4px;
+  background-color: #EDEDED;
+  border-radius: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+input[type="range"]:focus::-webkit-slider-thumb {
+  outline: 3px solid #DA0037;
+  background-color: #DA0037;
+  outline-offset: 0.125rem;
+}
+
+input[type="range"]::-moz-range-track {
+  background-color: #444444;
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+input[type="range"]::-moz-range-thumb {
+  background-color: #EDEDED;
+  border: none; 
+  border-radius: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+}
+
+input[type="range"]:focus::-moz-range-thumb{
+  outline: 3px solid #DA0037;
+  background-color: #DA0037;
+  outline-offset: 0.125rem;
+}
+
+#refereeActionButtons {
+    width: 100%;
+    display: flex;
+}
+
+#refereeActionButtons > button {
+    flex: 1;
+    background: #171717;
+    color: #EDEDED;
+    border: none;
+    padding: 0.5rem 1rem;
+}
+
+#refereeActionButtons > button:hover {
+    cursor: pointer;
+    background: #DA0037;
+    color: #EDEDED;
+}
+
+#landscapeMode {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    color: #EDEDED;
+    backdrop-filter: saturate(100%) blur(8px);
+    will-change: backdrop-filter;
+    z-index: 2000;
+}
+
+#landscapeMode > div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    transform: translate(-50%, -50%);
+}
+
+#landscapeMode > div > svg {
+    animation: rotate-phone 3s infinite;
+    transform-origin: center;
+}
+
+@keyframes rotate-phone {
+    0% {
+        transform: rotate(0deg);
+    }
+    30% {
+        transform: rotate(-90deg);
+    }
+    70% {
+        transform: rotate(-90deg); 
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+#landscapeMode > div > p {
+    text-align: center;
+    font-weight: 600;
+}
